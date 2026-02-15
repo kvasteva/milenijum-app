@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milenijum, vek i decenija</title>
+<style>
+body{
+font-family: Arial;
+background-color:#f4f6f8;
+text-align:center;
+padding:20px;
+}
+.container{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+max-width:400px;
+margin:auto;
+}
+input{
+padding:10px;
+font-size:18px;
+width:80%;
+margin:10px;
+}
+button{
+padding:10px 20px;
+font-size:18px;
+margin:5px;
+border:none;
+border-radius:5px;
+background:#4CAF50;
+color:white;
+}
+button:hover{
+background:#45a049;
+}
+#result{
+margin-top:20px;
+text-align:left;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Milenijum, vek i decenija</h2>
+<input id="year" placeholder="Unesite godinu">
+<br>
+<button onclick="izracunaj()">Izračunaj</button>
+<button onclick="resetuj()">Obriši</button>
+<div id="result"></div>
+</div>
+<script>
+function izracunaj(){
+let unos = document.getElementById("year").value;
+fetch("/izracunaj",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+godina:unos
+})
+})
+.then(response=>response.json())
+.then(data=>{
+document.getElementById("result").innerHTML =
+data.rezultat;
+});
+}
+function resetuj(){
+document.getElementById("year").value="";
+document.getElementById("result").innerHTML="";
+}
+</script>
+</body>
+</html>
